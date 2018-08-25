@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float speed = 3.5f;
+    public float jumpingForce = 300f;
+
+    private bool canJump = false;
 
 	// Use this for initialization
 	void Start () {
@@ -20,5 +23,17 @@ public class Player : MonoBehaviour {
 	    if (Input.GetKey("left")) {
 	        transform.position += Vector3.left * speed * Time.deltaTime;
 	    }
+        if (Input.GetKeyDown("space") && canJump) {
+            canJump = false;
+            GetComponent<Rigidbody>().AddForce(0, jumpingForce, 0);
+
+        }
 	}
+
+    void OnCollisionEnter (Collision collision)
+    {
+        if(collision.transform.name == "Floor") {
+            canJump = true;
+        }
+    }
 }
