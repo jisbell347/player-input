@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float speed = 3.5f;
-    public float rotatingSpeed = 40f;
+    public float rotatingSpeed = 140f;
     public float jumpingForce = 300f;
 
     private bool canJump = false;
