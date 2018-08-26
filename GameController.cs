@@ -4,23 +4,40 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    public GameObject[] gameCameras;
+
+    private int gameCameraIndex = 0;
+
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Hello World!");
+	    FocusOnCamera(gameCameraIndex);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("space")) {
-            Debug.Log("Jump!");
-        }
-
-	    if (Input.GetKey("left")) {
-	        Debug.Log("Move Left!");
-	    }
-
-	    if (Input.GetKey("right")) {
-	        Debug.Log("Move Right!");
+	    if (Input.GetMouseButtonDown(0)) {
+	        ChangeCamera(1);
 	    }
 	}
+
+    void FocusOnCamera(int index) {
+        for (int i = 0; i < gameCameras.Length; i++) {
+            gameCameras[i].SetActive(i == index);
+        }
+    }
+
+    void ChangeCamera(int direction) {
+        gameCameraIndex += direction;
+
+        if (gameCameraIndex >= gameCameras.Length) {
+            gameCameraIndex = 0;
+        }
+
+        if (gameCameraIndex < 0) {
+            gameCameraIndex = gameCameras.Length - 1;
+        }
+
+        FocusOnCamera(gameCameraIndex);
+    }
 }
+
